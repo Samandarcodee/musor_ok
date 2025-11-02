@@ -8,6 +8,7 @@ import Onboarding from "@/components/Onboarding";
 import NewHome from "@/pages/NewHome";
 import NewTariffs from "@/pages/NewTariffs";
 import NewProfile from "@/pages/NewProfile";
+import Checkout from "@/pages/Checkout";
 import Admin from "@/pages/Admin";
 import NotFound from "@/pages/not-found";
 
@@ -16,6 +17,7 @@ function Router() {
     <Switch>
       <Route path="/" component={NewHome} />
       <Route path="/tariffs" component={NewTariffs} />
+      <Route path="/checkout" component={Checkout} />
       <Route path="/profile" component={NewProfile} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />

@@ -3,7 +3,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import GradientCard from "@/components/GradientCard";
 import ModernTariffCard from "@/components/ModernTariffCard";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Calendar, Zap, Shield, Sparkles } from "lucide-react";
 
 const features = [
@@ -71,6 +71,7 @@ const tariffs = [
 ];
 
 export default function NewHome() {
+  const [, setLocation] = useLocation();
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
@@ -154,7 +155,7 @@ export default function NewHome() {
               <ModernTariffCard
                 key={index}
                 {...tariff}
-                onSelect={() => console.log(`Тариф ${tariff.name} выбран`)}
+                onSelect={() => setLocation("/checkout")}
               />
             ))}
           </div>

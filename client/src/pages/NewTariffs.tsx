@@ -5,6 +5,7 @@ import BottomSheet from "@/components/BottomSheet";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { useLocation } from "wouter";
 
 const allTariffs = [
   {
@@ -73,6 +74,7 @@ const guarantees = [
 ];
 
 export default function NewTariffs() {
+  const [, setLocation] = useLocation();
   const [showComparison, setShowComparison] = useState(false);
 
   return (
@@ -102,7 +104,7 @@ export default function NewTariffs() {
             <ModernTariffCard
               key={index}
               {...tariff}
-              onSelect={() => console.log(`Выбран ${tariff.name}`)}
+              onSelect={() => setLocation("/checkout")}
             />
           ))}
         </div>
