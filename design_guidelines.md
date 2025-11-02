@@ -1,213 +1,235 @@
-# ЭкоВывоз Design Guidelines
+# ЭкоВывоз Design Guidelines - Modern Gradient Edition
 
 ## Design Approach
 
-**Reference-Based Approach**: Drawing inspiration from modern subscription services (Stripe, Linear) combined with eco-friendly brand aesthetics (Patagonia, The Honest Company) and trust-building service platforms (Airbnb, TaskRabbit). The design balances utility with emotional connection to sustainability.
+**Reference-Based Approach**: Inspired by modern tech platforms (Notion, Linear, Stripe) with Telegram Mini App UX patterns. Playful, gradient-rich aesthetic that feels fresh and tech-forward rather than traditionally eco-conscious.
 
 **Core Principles**:
-- Clean minimalism that communicates efficiency and reliability
-- Trust-building through transparency and clarity
-- Eco-conscious aesthetic without being overly literal
-- Scannable information architecture for quick decision-making
-- Mobile-first for on-the-go service management
+- Vibrant gradients and glassmorphism effects
+- Mobile-first Telegram Mini App design
+- Playful interactions with emojis and animations
+- Bottom-sheet navigation and large touch targets
+- Swipeable cards and gesture-driven UI
 
 ---
 
 ## Typography System
 
-**Font Families** (via Google Fonts CDN):
-- **Primary**: Inter (400, 500, 600, 700) - for UI, body text, buttons
-- **Display**: Plus Jakarta Sans (600, 700, 800) - for headlines, hero sections
+**Font Families** (Google Fonts):
+- **Primary**: Inter (400, 500, 600, 700) - UI, body text
+- **Display**: Manrope (600, 700, 800) - headlines, hero sections
 
 **Typography Scale**:
-- Hero headline: text-5xl md:text-6xl lg:text-7xl, font-bold
-- Section headlines: text-3xl md:text-4xl, font-bold
-- Subsection titles: text-xl md:text-2xl, font-semibold
-- Card titles: text-lg font-semibold
+- Hero/Onboarding: text-4xl md:text-5xl, font-bold
+- Section headlines: text-2xl md:text-3xl, font-bold
+- Card titles: text-xl font-semibold
 - Body text: text-base leading-relaxed
-- Supporting text: text-sm
-- Fine print: text-xs
-
-**Line Height**: Use leading-relaxed (1.625) for body text, leading-tight (1.25) for headlines
+- Supporting: text-sm
+- Captions: text-xs
 
 ---
 
 ## Layout System
 
-**Spacing Primitives** (Tailwind units):
-- Primary: 4, 8, 12, 16, 20, 24 (p-4, mt-8, gap-12, py-16, mb-20, space-y-24)
-- Micro-spacing: 2, 3 (for tight elements like icon-text pairs)
-- Macro-spacing: 32, 40, 48 (for major section breaks)
+**Spacing Primitives**: 2, 4, 6, 8, 12, 16, 20, 24
 
 **Container Strategy**:
-- Full-width sections: w-full with inner max-w-7xl mx-auto px-6 lg:px-8
-- Content sections: max-w-6xl mx-auto
-- Text-heavy content: max-w-4xl mx-auto
-- Forms/cards: max-w-lg to max-w-2xl
+- Full mobile viewport: w-full px-4
+- Content cards: max-w-md mx-auto
+- Bottom sheets: Fixed bottom with rounded-t-3xl
 
 **Grid Patterns**:
-- Tariff cards: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8
-- Feature grid: grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8
-- Dashboard layouts: Two-column split on desktop (sidebar + main), stack on mobile
+- Tariff cards: Horizontal scroll (snap-x) on mobile
+- Features: grid-cols-2 gap-4 (compact mobile grid)
+- Stats/metrics: grid-cols-3 gap-3
 
 ---
 
 ## Component Library
 
 ### Navigation
-- Fixed header with logo (text-2xl font-bold) on left, navigation links center/right
-- Mobile: Hamburger menu with slide-out drawer
-- Desktop: Horizontal nav with hover underline indicators
-- CTA button (Login/Profile) with distinct treatment
-- Sticky on scroll with subtle shadow appearance
+- Fixed bottom nav bar (h-16) with 3-5 icons
+- Floating action button for primary action (bottom-right, rounded-full)
+- Top bar: Back button (left), title (center), menu/settings (right)
+- No traditional header - Telegram native top bar integration
 
-### Hero Section
-**Home Page Hero**:
-- Full-width section (min-h-screen md:min-h-[600px]) with subtle background treatment
-- Asymmetric layout: Text content left (60%), visual element right (40%)
-- Large hero image showing clean urban environment or happy customer
-- Logo placement: top-left or centered above headline
-- Tagline "Чисто. Удобно. Каждый день." as subheadline (text-xl md:text-2xl)
-- Dual CTA: Primary "Выбрать тариф" + Secondary "Как это работает"
-- Trust indicators below CTAs: "10,000+ довольных клиентов" with social proof icons
+### Onboarding Flow (3-4 Screens)
+**Screen Structure**:
+- Full-height viewport with gradient background
+- Large illustration/emoji at top (h-48 to h-64)
+- Headline + description centered (max-w-sm mx-auto)
+- Progress dots at bottom (mb-32)
+- Large CTA button fixed at bottom (bottom-8, full-width with px-6)
+
+**Screens**:
+1. Welcome: "🎉 Добро пожаловать!" + service intro
+2. How it works: "📅 Выбери график" + schedule explanation
+3. Benefits: "♻️ Забудь о проблемах" + value props
+4. Pricing: "💳 Выбери тариф" + quick tariff cards
 
 ### Cards
 
-**Tariff Cards** (3-4 options):
-- Vertical card layout with rounded-xl borders
-- Header: Plan name + recommended badge (if applicable)
-- Price: Large bold number + "/месяц" descriptor
-- Feature list: Icons (Heroicons) + feature text, checkmarks for included items
-- Prominent CTA button at bottom
-- Popular plan: Elevated treatment (border accent, shadow-lg, scale-105 on hover)
-- Card spacing: p-8, gap-6 between elements
+**Tariff Cards** (Horizontal Scroll):
+- Rounded-3xl with gradient backgrounds
+- w-72 h-96 (compact vertical cards)
+- Glass effect: backdrop-blur-xl bg-white/10 border border-white/20
+- Price: Large text-5xl font-bold
+- Features: Icon list with checkmarks/emojis (max 4-5 items)
+- CTA button: Rounded-full, full-width, solid fill
+- Snap scrolling: snap-center snap-x
 
 **Feature Cards**:
-- Icon at top (from Heroicons, size-12)
-- Title (text-lg font-semibold)
-- Description (text-base leading-relaxed)
-- Background: subtle background with rounded-lg
-- Hover: Subtle lift effect (hover:shadow-md transition)
+- Rounded-2xl, p-6
+- Emoji icon at top (text-4xl)
+- Title + compact description
+- Gradient border (border-2 gradient effect via pseudo-element)
+- Compact grid layout (2 columns)
 
-### Forms
-
-**Subscription/Profile Forms**:
-- Single column layout (max-w-lg)
-- Input fields: Rounded-lg borders, py-3 px-4, focus ring treatment
-- Labels: text-sm font-medium mb-2
-- Field groups: space-y-6
-- Address input: Autocomplete with Google Maps integration placeholder
-- Form sections separated by border-t with py-8 spacing
-- Submit button: Full-width on mobile, auto-width on desktop
-
-### Dashboard Components
-
-**User Dashboard**:
-- Card-based layout for different info sections
-- Active subscription card: Status badge, next pickup date (large), countdown
-- Address display: Editable inline with icon
-- Payment history: Table or timeline view with date, amount, status
-- Quick actions: Floating action button for schedule changes
-
-**Admin Panel**:
-- Sidebar navigation (w-64 hidden md:block)
-- Data table with sortable columns for customer list
-- Route map visualization (iframe placeholder for future map integration)
-- Status indicators: Colored badges (pending, active, completed)
-- Filter/search bar at top
+### Bottom Sheets
+- Slide-up modals with rounded-t-3xl
+- Drag handle at top (w-12 h-1 rounded-full, centered)
+- Backdrop blur overlay (bg-black/40)
+- Height variants: Half-screen, full-screen
+- Swipe-to-dismiss gesture
 
 ### Buttons
 
 **Button Hierarchy**:
-- Primary: Solid background, rounded-lg, px-6 py-3, font-semibold
-- Secondary: Outline variant with border-2
-- Tertiary: Text-only with underline on hover
-- Icon buttons: p-2 rounded-lg
-- Blur background for buttons on images: backdrop-blur-md bg-white/20
+- Primary: Gradient fill (purple→blue), rounded-full, py-4 px-8, font-semibold, shadow-lg
+- Secondary: Outline with gradient border, rounded-full
+- Bottom sheet CTA: Sticky bottom with safe-area padding (pb-safe)
+- Icon buttons: p-3 rounded-xl with glass effect
+- Hero/Image buttons: backdrop-blur-lg bg-white/20 (no hover states)
+
+**Touch Targets**: min-h-12, min-w-12 for all interactive elements
+
+### Forms
+
+**Compact Mobile Forms**:
+- Single column, full-width inputs
+- Rounded-2xl inputs with px-4 py-4
+- Floating labels or placeholder-only
+- Input groups: space-y-4
+- Bottom-sheet pattern for complex inputs (address, date selection)
+- Inline validation with subtle shake animation
+
+### Dashboard Components
+
+**Subscription Status Card**:
+- Large gradient card at top (rounded-3xl, p-6)
+- Emoji status indicator (🟢 Active, ⏸️ Paused)
+- Next pickup: Large text-3xl countdown
+- Quick actions: Horizontal icon row (pause, reschedule, support)
+
+**Compact Stats Grid**:
+- 3-column metrics (pickups, savings, streak)
+- Small cards with emoji + number + label
+- Glassmorphism treatment
+
+**Payment History**:
+- Timeline view with icons
+- Swipeable cards for each transaction
+- Compact list (text-sm) with expand-on-tap
+
+### Gradient System
+
+**Primary Gradients**:
+- Hero: from-purple-500 via-blue-500 to-teal-400
+- Cards: from-blue-400 to-purple-600
+- Accent: from-pink-500 to-orange-400
+- Subtle: from-slate-50 to-blue-50 (for backgrounds)
+
+**Glassmorphism**:
+- backdrop-blur-xl bg-white/10 border border-white/20
+- Used for cards, modals, floating elements
+- Subtle shadow-2xl for depth
 
 ### Micro-interactions
 
-- Card hover states: Scale very subtly (scale-[1.02]) with shadow increase
-- Button states: Active state with slight scale-down (active:scale-95)
-- Form validation: Inline error messages (text-sm) appear with fade-in
-- Loading states: Spinner icons for async actions
-- Success feedback: Checkmark animations for completed actions
+- Card tap: scale-95 active state (transform duration-75)
+- Swipe indicators: Arrow bounce animation
+- Success: Confetti emoji burst or checkmark scale-in
+- Loading: Gradient shimmer effect on placeholders
+- Pull-to-refresh: Spinner animation at top
+- Button press: Haptic feedback (Telegram API)
 
 ---
 
 ## Page-Specific Layouts
 
-### Home Page
-- Hero with image (described above)
-- How It Works: 3-step process with numbered icons, horizontal on desktop
-- Benefits section: 2-column grid (image left, benefit list right)
-- Pricing preview: 3 cards showing simplified tariffs + "See all plans" CTA
-- Social proof: Customer testimonials in 2-column grid with avatars
-- FAQ: Accordion component (max-w-3xl centered)
-- Footer CTA: Full-width section with final conversion push
+### Onboarding Screens
+- Full-screen gradient backgrounds (different gradient per screen)
+- Large illustration/emoji (centered, mb-8)
+- Headline + 2-3 line description (text-center, max-w-sm)
+- Progress dots: Bottom-centered, mb-24
+- CTA button: Fixed bottom-8, full-width
 
-### Tariffs Page
-- Page header: Centered title + description (max-w-3xl)
-- Comparison toggle: Monthly/Yearly switch (if applicable)
-- 3-4 tariff cards in grid
-- Feature comparison table below cards (desktop-optimized)
-- Trust section: Guarantees, refund policy
+### Main Dashboard
+- Status card prominent at top (gradient, large)
+- Quick stats grid (3 columns)
+- Upcoming pickups: Horizontal scroll cards
+- Bottom nav: Home, Schedule, Profile, Support
 
-### Profile/Subscription Page
-- Two-column on desktop: Sidebar (user info, quick stats) + Main (detailed sections)
-- Subscription status card prominent at top
-- Tabbed interface: Overview, Payment History, Settings
-- Edit mode: Inline editing with save/cancel actions
+### Tariff Selection
+- Hero gradient section with headline
+- Horizontal scroll tariff cards (3-4 options)
+- Comparison button below (opens bottom sheet)
+- Bottom sheet: Full feature comparison table
+- Sticky CTA: Selected plan button at bottom
 
-### Contacts Page
-- Split layout: Form left (max-w-lg), contact info + map right
-- Contact methods: Phone, email, Telegram with icons
-- Office hours and response time clearly stated
-- Map placeholder (iframe for future Google Maps integration)
+### Profile Page
+- Avatar/emoji at top with gradient ring
+- Info cards: Subscription, Address, Payment
+- Each section: Rounded-2xl card with tap-to-edit
+- Settings list: Icon + label rows
+- Logout: Red-tinted card at bottom
+
+### Support/Contact
+- Chat-style interface with bubble cards
+- Quick actions: Grid of emoji buttons (📞 Call, 💬 Chat, 📧 Email)
+- FAQ: Accordion with emoji icons
+- Bottom: Large "Связаться" button
 
 ---
 
 ## Images
 
-**Hero Image**: 
-- Large lifestyle image showing clean residential area or satisfied customer receiving service
-- Placement: Right side of hero, approximately 40% width on desktop, full-width on mobile
-- Style: Bright, clean, modern photography with natural lighting
-- Alt approach: Illustration of the eco-friendly pickup process
+**Onboarding Illustrations**:
+- Screen 1: Colorful illustration of happy person with clean home
+- Screen 2: Calendar/schedule visualization
+- Screen 3: Eco-friendly city scene
+- Style: Modern, flat, vibrant colors (purple/blue/teal palette)
+- Placement: Top section of each onboarding screen (h-48 to h-64)
 
-**Supporting Images**:
-- How It Works section: Icons/illustrations for each step
-- Benefits: Photo of organized waste collection or happy urban environment
-- Testimonials: Customer avatar placeholders or actual photos (rounded-full)
-- About section (if included): Team photo or service in action
+**No Traditional Hero Image**: Use gradient backgrounds with illustrations/emojis instead
 
-**Image Treatment**:
-- Rounded corners (rounded-xl) for all photos
-- Subtle shadow (shadow-md) for depth
-- Aspect ratios: 16:9 for hero, 1:1 for avatars, 4:3 for feature images
+**Supporting Visuals**:
+- Emoji icons throughout UI (🗑️ 📅 ♻️ 💚 ⚡)
+- Avatar placeholders: Gradient circles with initials
+- Success states: Animated Lottie or emoji
 
 ---
 
-## Telegram Mini App Considerations
+## Telegram Mini App Specifics
 
-- Ultra-simplified UI: Focus on single-task flows
-- Bottom-sheet style interactions (slide-up modals)
-- Larger touch targets (min-h-12)
-- Sticky bottom CTAs for primary actions
-- Native Telegram UI patterns: BackButton, MainButton integration
-- Compact tariff selection: Stacked cards instead of grid
-- Quick address entry: Location sharing integration
+- Safe area padding: pb-safe for bottom elements
+- Native components: BackButton, MainButton, HapticFeedback
+- Bottom sheet preferred over modals
+- No traditional nav bar - use Telegram's top bar
+- Large thumb-friendly buttons (min-h-12)
+- Swipe gestures for cards and navigation
+- Landscape mode disabled (portrait-only)
 
 ---
 
 ## Accessibility & Polish
 
-- Focus indicators: ring-2 ring-offset-2 on all interactive elements
-- Aria labels for icon-only buttons
-- Semantic HTML: proper heading hierarchy, form labels
-- Keyboard navigation: Full support with visible focus states
-- Contrast ratios: Ensure text readability on all backgrounds
-- Loading states for all async operations
-- Error states: Clear, actionable error messages
+- Focus states: ring-2 ring-offset-2 with gradient colors
+- Minimum contrast ratios on gradient backgrounds (use semi-transparent overlays)
+- Semantic HTML with proper ARIA labels
+- Reduced motion: Disable animations if preferred
+- Loading states: Skeleton screens with gradient shimmer
+- Error states: Red-tinted cards with emoji + message
+- Haptic feedback on all button presses (Telegram API)
 
-This design creates a trustworthy, efficient, and eco-conscious experience that makes subscription management feel effortless while building confidence in the service.
+This creates a vibrant, modern, mobile-optimized experience that feels like a premium tech product while maintaining effortless subscription management.

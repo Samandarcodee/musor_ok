@@ -3,18 +3,20 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/Home";
-import Tariffs from "@/pages/Tariffs";
-import Profile from "@/pages/Profile";
+import { useState, useEffect } from "react";
+import Onboarding from "@/components/Onboarding";
+import NewHome from "@/pages/NewHome";
+import NewTariffs from "@/pages/NewTariffs";
+import NewProfile from "@/pages/NewProfile";
 import Admin from "@/pages/Admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/tariffs" component={Tariffs} />
-      <Route path="/profile" component={Profile} />
+      <Route path="/" component={NewHome} />
+      <Route path="/tariffs" component={NewTariffs} />
+      <Route path="/profile" component={NewProfile} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
@@ -22,9 +24,24 @@ function Router() {
 }
 
 function App() {
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding");
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem("hasSeenOnboarding", "true");
+    setShowOnboarding(false);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {showOnboarding && <Onboarding onComplete={handleOnboardingComplete} />}
         <Toaster />
         <Router />
       </TooltipProvider>
