@@ -41,7 +41,7 @@
    - URL: `https://musor-ok-production.up.railway.app` (yoki o'xshash)
    - **Batafsil:** `RAILWAY_URL_GUIDE.md` faylini o'qing
 
-5. **Telegram Bot'ga qo'shish:**
+6. **Telegram Bot'ga qo'shish:**
    - BotFather'da `/newapp` yoki `/setmenubutton`
    - URL: `https://your-app.railway.app`
 
