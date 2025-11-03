@@ -20,18 +20,21 @@
    - "New Project" → "Deploy from GitHub repo"
    - EcoVyvoz repository'ni tanlang
 
-3. **Environment Variables:**
-   - Settings → Variables
+3. **Environment Variables (MUHIM!):**
+   - Settings → Variables → "+ New Variable"
    - Qo'shing:
      ```
-     DATABASE_URL=your_neon_connection_string
-     NODE_ENV=production
-     PORT=5000
+     Name: DATABASE_URL
+     Value: postgresql://neondb_owner:npg_X5AFuMhj4cdl@ep-round-glitter-ad2fxbre-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
      ```
+   - **Eslatma:** PORT Railway tomonidan avtomatik o'rnatiladi
 
-4. **Deploy:**
+4. **Build va Deploy Settings:**
+   - Build Command: `npm run build` (railway.json orqali avtomatik)
+   - Start Command: `npm start` (railway.json orqali avtomatik)
+   - Restart Policy: "On Failure" (10 retries)
    - Railway avtomatik build va deploy qiladi
-   - URL: `https://your-app.railway.app`
+   - URL: `https://musor-ok-production.up.railway.app` (yoki o'xshash)
 
 5. **Telegram Bot'ga qo'shish:**
    - BotFather'da `/newapp` yoki `/setmenubutton`
@@ -160,4 +163,5 @@ Neon'da compute ACTIVE bo'lishi kerak. Idle bo'lsa, uyg'otish kerak.
 
 - Railway Docs: https://docs.railway.app
 - Telegram Mini Apps: https://core.telegram.org/bots/webapps
+- **Batafsil qo'llanma:** `RAILWAY_SETUP.md` faylini o'qing
 
