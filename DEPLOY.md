@@ -34,7 +34,12 @@
    - Start Command: `npm start` (railway.json orqali avtomatik)
    - Restart Policy: "On Failure" (10 retries)
    - Railway avtomatik build va deploy qiladi
+
+5. **URL Olish:**
+   - Railway → musor_ok → Settings → Networking
+   - Yoki Deployments → eng oxirgi deployment → "View"
    - URL: `https://musor-ok-production.up.railway.app` (yoki o'xshash)
+   - **Batafsil:** `RAILWAY_URL_GUIDE.md` faylini o'qing
 
 5. **Telegram Bot'ga qo'shish:**
    - BotFather'da `/newapp` yoki `/setmenubutton`
