@@ -17,7 +17,8 @@
 
 4. **URL olish:**
    - **"Generate Domain"** tugmasini bosing (agar domain yaratilmagan bo'lsa)
-   - Yoki **"Custom Domain"** qo'shing
+   - **Port:** `5000` ni kiriting (loyiha 5000 portida ishlaydi)
+   - **"Generate Domain"** tugmasini bosing
    - Railway avtomatik URL beradi: `https://musor-ok-production.up.railway.app`
 
 ### 2-usul: Deployments bo'limidan
