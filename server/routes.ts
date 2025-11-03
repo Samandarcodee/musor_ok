@@ -12,9 +12,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Telegram Bot Webhook
   if (bot) {
+    console.log("Setting up bot webhook and info endpoints");
     app.post("/api/webhook", async (req, res) => {
+      console.log("Received webhook request:", req.body);
       try {
-        await bot.handleUpdate(req.body);
+        await bot!.handleUpdate(req.body);
+        console.log("Webhook handled successfully");
         res.sendStatus(200);
       } catch (error) {
         console.error("Webhook error:", error);
@@ -24,20 +27,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Bot info endpoint
     app.get("/api/bot-info", async (_req, res) => {
+      console.log("Received bot-info request");
       try {
         if (!bot) {
+          console.log("Bot not configured for bot-info");
           return res.status(503).json({ error: "Bot not configured" });
         }
-        const botInfo = await bot.api.getMe();
+        console.log("Fetching bot info from Telegram API");
+        const botInfo = await bot!.telegram.getMe();
+        console.log("Bot info fetched successfully:", botInfo);
         res.json({
           username: botInfo.username,
           id: botInfo.id,
           first_name: botInfo.first_name,
         });
       } catch (error) {
+        console.error("Bot info error:", error);
         res.status(500).json({ error: "Failed to get bot info" });
       }
     });
+  } else {
+    console.log("Bot not available, skipping webhook and bot-info endpoints");
   }
 
   const httpServer = createServer(app);

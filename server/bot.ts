@@ -4,9 +4,17 @@ const Bot = Telegraf;
 
 if (!process.env.BOT_TOKEN) {
   console.warn("BOT_TOKEN not set - Telegram bot will be disabled");
+} else {
+  console.log("BOT_TOKEN is set, initializing bot...");
 }
 
 export const bot = process.env.BOT_TOKEN ? new Bot(process.env.BOT_TOKEN) : null;
+
+if (bot) {
+  console.log("Bot initialized successfully");
+} else {
+  console.log("Bot not initialized due to missing BOT_TOKEN");
+}
 
 const webappUrl = process.env.WEBAPP_URL || "https://musorok-production.up.railway.app";
 
