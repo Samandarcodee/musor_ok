@@ -1,4 +1,6 @@
-import { Bot, Context } from "telegraf";
+import { Telegraf, Context } from "telegraf";
+
+const Bot = Telegraf;
 
 if (!process.env.BOT_TOKEN) {
   console.warn("BOT_TOKEN not set - Telegram bot will be disabled");
