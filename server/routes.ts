@@ -12,6 +12,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   const httpServer = createServer(app);
 
+  // Health check endpoint for Railway
+  app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
+
   // Telegram Bot Webhook
   if (bot) {
     console.log("Setting up bot webhook and info endpoints");
