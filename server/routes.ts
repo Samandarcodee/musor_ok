@@ -10,9 +10,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
 
+  const httpServer = createServer(app);
+
   // Telegram Bot Webhook
   if (bot) {
     console.log("Setting up bot webhook and info endpoints");
+    
+    // Auto-setup webhook if WEBAPP_URL is set
+    const webappUrl = process.env.WEBAPP_URL;
+    if (webappUrl && process.env.NODE_ENV === "production") {
+      try {
+        const webhookUrl = `${webappUrl}/api/webhook`;
+        console.log(`Setting up webhook: ${webhookUrl}`);
+        await bot.telegram.setWebhook(webhookUrl);
+        const webhookInfo = await bot.telegram.getWebhookInfo();
+        console.log("Webhook configured:", webhookInfo.url);
+      } catch (error) {
+        console.error("Failed to set webhook:", error);
+      }
+    } else if (process.env.NODE_ENV !== "production") {
+      console.log("Development mode: Starting bot with polling...");
+      try {
+        // Use polling in development mode
+        bot.launch().then(() => {
+          console.log("Bot started with polling mode");
+        }).catch((error) => {
+          console.error("Failed to start bot with polling:", error);
+        });
+      } catch (error) {
+        console.error("Error launching bot:", error);
+      }
+    }
+
     app.post("/api/webhook", async (req, res) => {
       console.log("Received webhook request:", req.body);
       try {
@@ -49,8 +78,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } else {
     console.log("Bot not available, skipping webhook and bot-info endpoints");
   }
-
-  const httpServer = createServer(app);
 
   return httpServer;
 }
