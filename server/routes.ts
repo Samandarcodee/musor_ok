@@ -16,9 +16,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   if (bot) {
     console.log("Setting up bot webhook and info endpoints");
     
-    // Auto-setup webhook if WEBAPP_URL is set
-    const webappUrl = process.env.WEBAPP_URL;
-    if (webappUrl && process.env.NODE_ENV === "production") {
+    // Auto-setup webhook in production
+    // Try to get URL from WEBAPP_URL, RAILWAY_PUBLIC_DOMAIN, or default
+    let webappUrl = process.env.WEBAPP_URL;
+    
+    // If WEBAPP_URL is not set, try Railway's public domain
+    if (!webappUrl && process.env.RAILWAY_PUBLIC_DOMAIN) {
+      webappUrl = `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`;
+      console.log(`Using Railway public domain: ${webappUrl}`);
+    }
+    
+    // If still no URL, use default (should be set in production)
+    if (!webappUrl) {
+      webappUrl = "https://musorok-production.up.railway.app";
+      console.log(`Using default URL: ${webappUrl}`);
+    }
+    
+    if (process.env.NODE_ENV === "production") {
       try {
         const webhookUrl = `${webappUrl}/api/webhook`;
         console.log(`Setting up webhook: ${webhookUrl}`);
@@ -27,8 +41,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log("Webhook configured:", webhookInfo.url);
       } catch (error) {
         console.error("Failed to set webhook:", error);
+        console.error("Please manually set webhook using:");
+        console.error(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/setWebhook?url=${webappUrl}/api/webhook`);
       }
-    } else if (process.env.NODE_ENV !== "production") {
+    } else {
       console.log("Development mode: Starting bot with polling...");
       try {
         // Use polling in development mode
